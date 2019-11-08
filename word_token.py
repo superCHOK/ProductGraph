@@ -1,4 +1,3 @@
-import pythainlp
 from pythainlp.tokenize import word_tokenize
 
 text = "ทดสอบการตัดคำภาษาไทย"
