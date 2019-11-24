@@ -1,0 +1,15 @@
+export BPE_DIR= C:\Users\super\ProductGrpah\th_wiki_bpe
+export TEXT_DIR= C:\Users\super\ProductGrpah\Description_classification
+export DATA_DIR=/path/to/data
+
+python create_pretraining_data.py \
+  --input_file=$TEXT_DIR/text.txt \
+  --output_file=$DATA_DIR/tf_examples.tfrecord \
+  --vocab_file=$BPE_DIR/th.wiki.bpe.op25000.vocab \
+  --max_seq_length=128 \
+  --max_predictions_per_seq=20 \
+  --masked_lm_prob=0.15 \
+  --random_seed=12345 \
+  --dupe_factor=5 \
+  --thai_text=True \
+  --spm_file=$BPE_DIR/th.wiki.bpe.op25000.model
