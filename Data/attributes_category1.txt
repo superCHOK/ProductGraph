@@ -28,7 +28,6 @@ cpu
 ความสว่าง
 จอภาพ
 สนับสนุน
-ความเร็วถ่ายภาพต่อเนื่อง
 chipset
 wireless
 bluetooth
@@ -43,5 +42,5 @@ port
 ประเภทหน่วยประมวลผล
 ระบบประมวลผล
 สี
-power supply
+psu
 mainboard
