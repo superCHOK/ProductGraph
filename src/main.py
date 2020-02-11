@@ -23,12 +23,21 @@ ALLOWED_EXTENSIONS = set(['csv'])
 
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-	
+
+
 @app.route('/')
-def upload_form():
+def home():
+	return render_template('home.html')
+
+@app.route('/help')
+def help():
+	return render_template('help.html')
+	
+@app.route('/uploads')
+def uploads():
 	return render_template('uploads.html')
 
-@app.route('/', methods=['POST'])
+@app.route('/uploads', methods=['POST'])
 def upload_file():
 	if request.method == 'POST':
 		# check if the post request has the file part
@@ -40,6 +49,12 @@ def upload_file():
 			flash('No file selected for uploading')
 			return redirect(request.url)
 		if file and allowed_file(file.filename):
+			# Neo4j authentication
+			host = 'localhost'
+			user = 'neo4j'
+			password = '1234'
+
+
 			filename = secure_filename(file.filename)
 			#file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
@@ -58,8 +73,9 @@ def upload_file():
 			data = data.dropna(axis=1, how='all')
 			# Fill NaN with "-"
 			data = data.fillna('-')
+
 			# Filter
-			data = data.filter(regex ='category_[0-9]_[0-9]+')
+			data = data.filter(regex ='category_[0-5]_[0-9]+')
 			regex_attr = ("|").join(attr_fix)
 
 			# Cleaning text with clean_text function and keep in dict
@@ -120,7 +136,14 @@ def upload_file():
 			with open('./data/Product_names_{}.txt'.format(filename), 'w', encoding='utf-8') as fn:
 				print(name_item, file=fn)
 
-			create_graph(triples,name_item,'localhost','neo4j','1234')
+			# Test connection of graph database
+			# Create graph and keep in graph database
+			try:
+				create_graph(triples,name_item,host,user,password)
+			except Exception as e:
+				return render_template('no_graph.html', error=str(e))
+			
+			
 
 			flash('Completed!')
 			return redirect('/')
