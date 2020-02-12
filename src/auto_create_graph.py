@@ -110,6 +110,11 @@ def clean_name(msg):
     msg = re.sub(r"model","โมเดล ",str(msg))
     msg = re.sub(r"[\d\s]*มิลลิเมตร|\sมม\.?|millimeter\.?"," mm ",str(msg))
     msg = re.sub(r"[\d\s]*เซนติเมตร|\sซม\.?|centimeter\.?"," cm ",str(msg))
+
+    # clean special character
+    msg = re.sub(r"[\,]","",str(msg))
+    msg = re.sub(r"【.*】","", str(msg))
+    msg = re.sub(r"[^a-z0-9ก-๙\.\s]"," ", str(msg))
     msg = re.sub(r"\s+"," ",str(msg))
     
     return msg

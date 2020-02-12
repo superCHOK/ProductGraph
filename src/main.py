@@ -21,6 +21,7 @@ from py2neo import Node, Relationship, Graph
 
 ALLOWED_EXTENSIONS = set(['csv'])
 
+
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -56,7 +57,7 @@ def upload_file():
 
 
 			filename = secure_filename(file.filename)
-			#file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
 			# input
 			df = pd.read_csv(file)
@@ -68,14 +69,18 @@ def upload_file():
 				attr_fix = f.read().splitlines()
 
 			# Drop a column that not use
-			data = df.drop(columns=['Unnamed: 0'])
+			try:
+				data = df.drop(columns=['Unnamed: 0'])
+			except Exception as err:
+				return render_template('error.html', error=str(err))
+			
 			# Drop column that all equal to NaN
 			data = data.dropna(axis=1, how='all')
 			# Fill NaN with "-"
 			data = data.fillna('-')
 
 			# Filter
-			data = data.filter(regex ='category_[0-5]_[0-9]+')
+			data = data.filter(regex ='category_[0-4]_[0-9]+')
 			regex_attr = ("|").join(attr_fix)
 
 			# Cleaning text with clean_text function and keep in dict
