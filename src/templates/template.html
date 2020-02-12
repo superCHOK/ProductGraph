@@ -9,32 +9,39 @@
   </head>
   <body>
     <header>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-              
-            </div>
-          
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <a class="navbar-item" href="{{ url_for('home') }}">
-                  Home
-                </a>
-          
-                <a class="navbar-item" href="{{ url_for('uploads') }}">
-                  Upload
-                </a>
+      <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="{{ url_for('home') }}">
+            Home
+          </a>
+          <a class="navbar-item" href="{{ url_for('uploads') }}">
+            Upload
+          </a>
+          <a class="navbar-item" href="{{ url_for('help') }}">
+            Help
+          </a>
+        </div>
+      </nav>
+      <br></br>
+      <script type="text/javascript">
+      (function(){
+          var burger = document.querySelector('.burger');
+          var nav = document.getElementById('navMenu');
 
-                <a class="navbar-item" href="{{ url_for('help') }}">
-                    Help
-                </a>
-
-              </div>
-          
-            </div>
-          </nav>
+          burger.addEventListener('click', function(){
+            burger.classList.toggle('is-active');
+            nav.classList.toggle('is-active');
+          })
+        })
+      </script>
     </header>
 
   {% block content %}
   {% endblock %}
   </body>
+  <style>
+    html, body {
+      font-family: prompt;
+    }
+  </style>
 </html>
