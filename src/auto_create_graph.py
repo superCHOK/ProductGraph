@@ -40,7 +40,7 @@ def clean_text_category1(msg, attr_fix):
         msg = re.sub(r"(แล็ปท็อป|แล็ปท็อปสำหรับเล่นเกมส์)",r"ประเภทย่อย \1",str(msg))
     elif (str(msg)=='คอมพิวเตอร์แบบตั้งโต๊ะ') | (str(msg)=='gaming desktops') | (str(msg)=='คอมประกอบ'):
         msg = re.sub(r"(คอมประกอบ|คอมพิวเตอร์แบบตั้งโต๊ะ|gaming desktops)",r"ประเภทย่อย \1",str(msg))
-    elif re.match("[0-9]\*[0-9]",str(msg)):
+    elif re.match(r"[0-9]\*[0-9]",str(msg)):
         msg = re.sub(r"\*","x",str(msg))
     
     msg = re.sub(r"\&","และ",str(msg))

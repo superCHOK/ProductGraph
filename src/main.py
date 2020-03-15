@@ -60,7 +60,7 @@ def upload_file():
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
 			# input
-			df = pd.read_csv(file)
+			df = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
 			file_name2 = os.path.join(app.root_path, 'data/attributes_category1.txt')
 
